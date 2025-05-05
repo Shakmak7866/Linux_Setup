@@ -1,0 +1,165 @@
+#+TITLE: Linux Setup
+#+AUTHOR: Shakeeb Uddin
+
+
+* Linux Setup
+When first setting up any linux machine, there are things that I want that make it the best for me.
+* Applications
+** Syncthing
+** Alacritty
+** Emacs->Doom Emacs
+** Neovim->NvChad
+** Awesomewm
+
+* Syncthing
+** Install syncthing via command line
+- sudo apt-get install syncthing
+** Keep it running
+- sudo systemctl enable syncthing@shakeeb.service --now
+
+* Emacs->Doom Emacs
+- Distrotube Tutorial for Ubuntu: https://www.youtube.com/watch?v=37H7bD-G7nE
+- Distrotube Tutorial for Arch: https://www.youtube.com/watch?v=iab2z21cRqA
+  - sudo pacman -Syyu
+  - sudo pacman -S emacs git ripgrep fd
+  - git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+  - .emacs.d/bin/doom install
+
+* Alacritty
+** Getting Opacity and nerd font
+  - I used this tutorial: https://www.youtube.com/watch?v=mQdB_kHyZn8
+  - Nerd Font Website: https://www.nerdfonts.com/
+** Download nerd font (For me, I like Jetbrains Mono NF)
+** Go to terminal
+** Type following commands to get the files of nerd font and put them in font folder
+- cd Downloads
+- unzip “Zip file name”.zip -d “Folder named after nerd font”
+  - If you do not have unzip command, you can install it via command line
+- cd “Folder named after nerd font”
+- cp -vf *.ttf ~/.local/share/fonts
+  - You might have to create the folder if it is not there
+- cd
+  - Takes you to home directory
+- cd .local
+- cd share
+- ls
+  - List out contents to see if folder is there
+- mkdir fonts
+  - Make the directory if is not there
+- fc-list | grep “Nerd Font name”
+  - This command lets you see where files with this name are located
+
+** Now that we have the nerd font in our system, lets go ahead and configure alacritty
+** Open the terminal again or cd into the home folder
+- cd .config
+- ls
+  - See if alacritty folder is there
+  - If folder is not there, run
+    - mkdir alacritty
+- cd alacritty
+- “Text editor of choice (I prefer vim/nvim)” alacritty.yml
+** Within this file, we will go ahead and have the terminal a little transparent and set the nerd font
+** Enter the following text into the file
+
+window:
+	opacity: 0.8
+
+font:
+	normal:
+		family: “JetBrainsMono Nerd Font”
+	size: 8
+
+** Save the file
+** If Alacritty is saying that .yml doesn’t work anymore and you have to switch to .toml, run this command in alacritty
+- alacritty migrate
+** Now we have a see through alacritty terminal with a nerd font
+
+* Neovim->Nvchad
+** Youtube Tutorial: https://www.youtube.com/watch?v=Mtgo-nP_r8Y
+** Make sure to install Neovim version 0.10 or above. (Arch is one command, Ubuntu requires steps) and also install git
+- sudo add-apt-repository ppa:neovim-ppa/unstable
+- sudo apt-get update
+- sudo apt-get install neovim
+- sudo apt-get install git
+** Get Nerd Font for terminal
+** Youtube Video: https://www.youtube.com/watch?v=mQdB_kHyZn8
+** Refer to Alacritty for configuration
+** Installing NvChad
+** Github instructions: https://nvchad.com/docs/quickstart/install
+
+** Assuming that you do not have any neovim configuration yet, you can follow the next commands. If you do, you can back them up as shown in the video
+- mv ~/.config/nvim ~/.config/nvim.backup
+** You will go ahead and run the following commands
+- rm -rf ~/.local/share/nvim
+** To prevent any issues
+- git clone https://github.com/NvChad/starter ~/.config/nvim
+** Then you will open nvim by running
+- nvim
+** When you open it, it may ask you for an example custom fig. You can say no to that by typing “n” and then enter
+** It will install all plugins
+** Then after that, inside nvim, run the following command according to the github page
+- :MasonInstallAll
+** This allows for lsp (autocompletion like in vscode)
+** If you want to change the theme, press the following keys (SPC means spacebar):
+- SPC t h
+** Most important command would probably be
+- SPC c h
+** This opens the cheat sheet
+** To get syntax highlighting for certain languages, in nvim, run
+- :TSInstall “language”
+** You might need specific lsp, so run
+- :Mason
+** Then move to the language-server you want it for
+** For Transparency:
+- cd ~/.config/nvim/lua
+- nvim chadrc.lua
+** Right before the line “return M”, add these lines of code:
+M.ui = {
+	transparency = true;
+}
+** Save the file, exit nvim and enter again, and you should have transparency in nvim
+
+* Awesome Config
+** First we need to get the file that we will allow us to configure awesomewm
+** After that, we will go ahead and get the customizatino
+** Then we will add some last configurations to the file
+** Run the following commands
+*** Packages
+**** There are some packages that will help elevate the experience
+**** The following packages are:
+***** sudo apt-get install picom
+****** This package allows for transparency
+***** sudo apt-get install nitrogen
+****** Set wallpaper
+***** sudo apt-get install dmenu
+****** Better searching for applications
+*** Commands
+**** cd .config
+**** ls
+***** If awesome is not among the file directories, go ahead and make it by running
+****** mkdir awesome
+**** cd awesome
+**** cp /etc/xdg/awesome/rc.lua ~/.config/awesome
+**** ls
+***** You should see a file named rc.lua
+**** cd
+**** git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.git
+**** mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats
+**** cp rc.lua.template rc.lua
+*** Configuring the rc.lua file
+**** Using editor of choice, go into the lua file and make these following changes
+**** On line 87, the themes are listed there
+**** On line 100, change the number inside the brackets to get the theme you want
+**** On line 103, you can change which terminal you want in the quotes
+**** On line 107, you can change which browser will launch
+**** On line 807-811, you can comment out sloppy if you want
+**** At the end of the file, add this line for gaps
+***** --Gaps
+***** beautiful.useless_gap = 5
+**** At the end of the file, we will also declare which applications we want such as nitrogen for wallpaper and picom for transparency
+***** awful.spawn.with_shell("picom")
+***** awful.spawn.with_shell("nitrogen --restore")
+****** We add --restore to restore the wallpaper we had
+**** On line 550, we want super + r to run dmenu. Replace that line with this line:
+***** awful.key({ modkey }, "r", function () awful.util.spawn("dmenu_run") end,
+**** On line 551, replace "run prompt" to something like dmenu to show up in cheatsheet
