@@ -5,11 +5,11 @@
 * Linux Setup
 When first setting up any linux machine, there are things that I want that make it the best for me.
 * Applications
-** Syncthing
-** Alacritty
-** Emacs->Doom Emacs
-** Neovim->NvChad
-** Awesomewm
+- Syncthing
+- Alacritty
+- Emacs->Doom Emacs
+- Neovim->NvChad
+- Awesomewm
 
 * Syncthing
 ** Install syncthing via command line
@@ -30,36 +30,37 @@ When first setting up any linux machine, there are things that I want that make 
   - I used this tutorial: https://www.youtube.com/watch?v=mQdB_kHyZn8
   - Nerd Font Website: https://www.nerdfonts.com/
 ** Download nerd font (For me, I like Jetbrains Mono NF)
-** Go to terminal
-** Type following commands to get the files of nerd font and put them in font folder
-- cd Downloads
-- unzip “Zip file name”.zip -d “Folder named after nerd font”
-  - If you do not have unzip command, you can install it via command line
-- cd “Folder named after nerd font”
-- cp -vf *.ttf ~/.local/share/fonts
-  - You might have to create the folder if it is not there
-- cd
-  - Takes you to home directory
-- cd .local
-- cd share
-- ls
-  - List out contents to see if folder is there
-- mkdir fonts
-  - Make the directory if is not there
-- fc-list | grep “Nerd Font name”
-  - This command lets you see where files with this name are located
+- Go to terminal
+- Type following commands to get the files of nerd font and put them in font folder
+  - cd Downloads
+  - unzip “Zip file name”.zip -d “Folder named after nerd font”
+    - If you do not have unzip command, you can install it via command line
+  - cd “Folder named after nerd font”
+  - cp -vf *.ttf ~/.local/share/fonts
+    - You might have to create the folder if it is not there
+  - cd
+    - Takes you to home directory
+  - cd .local
+  - cd share
+  - ls
+    - List out contents to see if folder is there
+  - mkdir fonts
+    - Make the directory if is not there
+  - fc-list | grep “Nerd Font name”
+    - This command lets you see where files with this name are located
 
-** Now that we have the nerd font in our system, lets go ahead and configure alacritty
-** Open the terminal again or cd into the home folder
-- cd .config
-- ls
-  - See if alacritty folder is there
-  - If folder is not there, run
-    - mkdir alacritty
-- cd alacritty
-- “Text editor of choice (I prefer vim/nvim)” alacritty.yml
-** Within this file, we will go ahead and have the terminal a little transparent and set the nerd font
-** Enter the following text into the file
+- Now that we have the nerd font in our system, lets go ahead and configure alacritty
+- Open the terminal again or cd into the home folder
+  - cd .config
+  - ls
+    - See if alacritty folder is there
+    - If folder is not there, run
+      - mkdir alacritty
+  - cd alacritty
+  - “Text editor of choice (I prefer vim/nvim)” alacritty.yml
+- Within this file, we will go ahead and have the terminal a little transparent and set the nerd font
+
+- Enter the following text into the file
 
 window:
 	opacity: 0.8
@@ -69,10 +70,10 @@ font:
 		family: “JetBrainsMono Nerd Font”
 	size: 8
 
-** Save the file
+- Save the file
 ** If Alacritty is saying that .yml doesn’t work anymore and you have to switch to .toml, run this command in alacritty
 - alacritty migrate
-** Now we have a see through alacritty terminal with a nerd font
+- Now we have a see through alacritty terminal with a nerd font
 
 * Neovim->Nvchad
 ** Youtube Tutorial: https://www.youtube.com/watch?v=Mtgo-nP_r8Y
